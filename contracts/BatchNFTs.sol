@@ -39,7 +39,18 @@ contract BatchNFTs is Ownable, ERC721A {
   }
 
   function pauseMint(bool _paused) external onlyOwner {
-    require(!mintPaused, "Contract paused.");
+    require(!mintPaused, "Contract paused."); //by requiring the mint to not be paused, this prevents the function from working like a toggle? as in you wouldnt be able to un-pause it? see code below
     mintPaused = _paused;
   }
+  /** 
+   * this would allow both pausing and unpausing. have to write 'true' or 'false' to the contract this way
+   * function pause(bool _state) public onlyOwner {
+   *   mintPaused = _state;
+   * }
+   * 
+   * if you want a pure toggle, this works
+   * * function pause() public onlyOwner {
+   *   mintPaused = !mintPaused;
+   * }
+  */
 }
