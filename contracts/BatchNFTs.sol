@@ -11,9 +11,13 @@ contract BatchNFTs is Ownable, ERC721A {
   uint256 public immutable START_TIME = 1682346855;
   bool public mintPaused = false; 
   string private _baseTokenURI;
+  string public baseUri = "ipfs://[something].json";
+  string public baseExtension = ".json";
+  bool public revealed = false;
+  string public notRevealedUri = "ipfs://[something].json";
 
   constructor() ERC721A("ERC721A Token", "721AT") {
-    
+
   }
 
   function mint(address to, uint256 quantity) external payable {
@@ -52,4 +56,58 @@ contract BatchNFTs is Ownable, ERC721A {
    *   mintPaused = !mintPaused;
    * }
   */
+
+  function tokenURI(
+        uint256 tokenId
+    ) public view virtual override returns (string memory) {
+        require(
+            _exists(tokenId),
+            "ERC721Metadata: URI query for nonexistent token"
+        );
+
+        if (revealed == false) {
+            return notRevealedUri;
+        }
+
+        string memory currentBaseURI = _baseURI();
+        return
+            bytes(currentBaseURI).length > 0
+                ? string(
+                    abi.encodePacked(
+                        currentBaseURI,
+                        tokenId.toString(),
+                        baseExtension
+                    )
+                )
+                : "";
+    }
+
+    //only owner
+
+    //to change metadata from hidden to actual metadata
+    function reveal() public onlyOwner {
+        revealed = true;
+    }
+
+    //optional if you want to be able to change price
+    function setCost(uint256 _newCost) public onlyOwner {
+        PRICE_PER_TOKEN = _newCost;
+    }
+
+    //not sure if this is already in the 721A that this extends from
+    function setBaseURI(string memory _newBaseURI) public onlyOwner {
+        baseUri = _newBaseURI;
+    }
+
+    //same as above but for the hidden metadata. this one is deff not already included in the 721A
+    function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
+        notRevealedUri = _notRevealedURI;
+    }
+
+    //if you don't want json at any point as the file type it can now be changed
+    function setBaseExtension(
+        string memory _newBaseExtension
+    ) public onlyOwner {
+        baseExtension = _newBaseExtension;
+    }
 }

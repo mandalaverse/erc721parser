@@ -12,5 +12,11 @@ npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
 
+To specify a network, run as such:
+```
+npx hardhat node
+```
+to run a localhost node if you're using localhost network, then in a separate terminal: 
 ```
 npx hardhat run --network localhost scripts/deploy.js
+```
