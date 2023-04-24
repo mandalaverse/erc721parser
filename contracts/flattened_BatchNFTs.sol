@@ -1,7 +1,3 @@
-// Sources flattened with hardhat v2.14.0 https://hardhat.org
-
-// File contracts/interfaces/IERC721A.sol
-
 // SPDX-License-Identifier: MIT
 // ERC721A Contracts v4.2.3
 // Creator: Chiru Labs
@@ -288,7 +284,6 @@ interface IERC721A {
 
 // File contracts/ERC721A.sol
 
-// SPDX-License-Identifier: MIT
 // ERC721A Contracts v4.2.3
 // Creator: Chiru Labs
 
@@ -1380,7 +1375,6 @@ contract ERC721A is IERC721A {
 
 // File contracts/utils/Context.sol
 
-// SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
 
 pragma solidity ^0.8.0;
@@ -1408,7 +1402,6 @@ abstract contract Context {
 
 // File contracts/Ownable.sol
 
-// SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)
 
 pragma solidity ^0.8.0;
@@ -1566,7 +1559,6 @@ library Strings {
 
 // File contracts/BatchNFTs.sol
 
-// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 contract BatchNFTs is Ownable, ERC721A {
 
@@ -1621,9 +1613,7 @@ contract BatchNFTs is Ownable, ERC721A {
    * }
   */
 
-  function tokenURI(
-        uint256 tokenId
-    ) public view virtual override returns (string memory) {
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         require(
             _exists(tokenId),
             "ERC721Metadata: URI query for nonexistent token"
