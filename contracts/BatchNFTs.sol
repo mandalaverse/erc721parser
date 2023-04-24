@@ -8,13 +8,12 @@ contract BatchNFTs is Ownable, ERC721A {
 
   uint256 public constant MAX_SUPPLY = 100;
   uint256 public constant PRICE_PER_TOKEN = 0.01 ether;
-  uint256 public immutable START_TIME;
-  bool public mintPaused; 
+  uint256 public immutable START_TIME = 1682346855;
+  bool public mintPaused = false; 
   string private _baseTokenURI;
 
-  constructor(uint256 _startTime, bool _paused) ERC721A("ERC721A Token", "721AT") {
-      START_TIME = _startTime;
-      mintPaused = _paused;
+  constructor() ERC721A("ERC721A Token", "721AT") {
+    
   }
 
   function mint(address to, uint256 quantity) external payable {
