@@ -3,12 +3,13 @@ pragma solidity ^0.8.13;
 
 import "./ERC721A.sol";
 import "./Ownable.sol";
+import "./Strings.sol";
 
 contract BatchNFTs is Ownable, ERC721A {
 
   uint256 public constant MAX_SUPPLY = 100;
   uint256 public constant PRICE_PER_TOKEN = 0.01 ether;
-  uint256 public immutable START_TIME = 1682346855;
+  uint256 public immutable START_TIME = 1682346855; //todo check if UNIX time works
   bool public mintPaused = false; 
   string private _baseTokenURI;
   string public baseUri = "ipfs://[something].json";
@@ -28,6 +29,10 @@ contract BatchNFTs is Ownable, ERC721A {
     _mint(to, quantity);
   }
 
+  function _baseURI() internal view override returns (string memory) {
+    return _baseTokenURI;
+  }
+
   function withdraw() external onlyOwner {
     (bool success, ) = msg.sender.call{value: address(this).balance}("");
     require(success, "Transfer Failed");
@@ -35,10 +40,6 @@ contract BatchNFTs is Ownable, ERC721A {
 
   function setBaseURI(string calldata baseURI) external onlyOwner {
     _baseTokenURI = baseURI;
-  }
-
-  function _baseURI() internal view override returns (string memory) {
-    return _baseTokenURI;
   }
 
   function pauseMint(bool _paused) external onlyOwner {
@@ -75,7 +76,7 @@ contract BatchNFTs is Ownable, ERC721A {
                 ? string(
                     abi.encodePacked(
                         currentBaseURI,
-                        tokenId.toString(),
+                        tokenId.toString(), 
                         baseExtension
                     )
                 )
@@ -92,11 +93,6 @@ contract BatchNFTs is Ownable, ERC721A {
     //optional if you want to be able to change price
     function setCost(uint256 _newCost) public onlyOwner {
         PRICE_PER_TOKEN = _newCost;
-    }
-
-    //not sure if this is already in the 721A that this extends from
-    function setBaseURI(string memory _newBaseURI) public onlyOwner {
-        baseUri = _newBaseURI;
     }
 
     //same as above but for the hidden metadata. this one is deff not already included in the 721A
