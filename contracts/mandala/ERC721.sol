@@ -1261,22 +1261,28 @@ pragma solidity ^0.8.0;
 contract NFT_ERC721 is ERC721, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenSupply;
-
     using Strings for uint256;
 
-    string baseURI = "ipfs://[hash]/";
-    string public notRevealedUri = "ipfs://[hash]/hidden.json";
+    //TODO: baseURI hash, is it the same as the notRevealedUri
+    string baseURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/";
+    string public notRevealedUri = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/hidden.json";
     string public baseExtension = ".json";
-    uint256 public cost = 0.01 ether;
-    uint256 public maxSupply = 100;
-    uint256 public maxMintAmount = 10; //optional
+    uint256 public cost = 0.01 ether; //TODO: to update
+    uint256 public maxSupply = 3755;
+    uint256 public maxMintAmount = 10; //TODO: optional, do we want this?
     bool public mintActive = true;
     bool public revealed = false;
     address payable public payments;
     uint256 public startTime = 1664582400;
 
     constructor() ERC721("TestTokens", "TT") {
-
+        uint256 supply = _tokenSupply.current();
+        //TODO: mint amount for treasury, set to 25 now
+        for (uint256 i = 0; i < 25; i++) {
+            _tokenSupply.increment();
+            //TODO: contract addr for treasury
+            _safeMint(0x809bFD2E376BF2E4C53F352B8bF07c812662f588, supply + i);
+        }
     }
 
     // internal
