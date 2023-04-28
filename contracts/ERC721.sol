@@ -1269,10 +1269,9 @@ contract NFT_ERC721 is ERC721, Ownable {
     string public baseExtension = ".json";
     uint256 public cost = 0.01 ether; //TODO: to update
     uint256 public maxSupply = 3755;
-    bool public mintActive = true;
     bool public revealed = false;
     address payable public payments;
-    uint256 public startTime = 1664582400;
+    uint256 public startTime = 1664582400; //TODO: update
 
     constructor() ERC721("TestTokens", "TT") {
         uint256 supply = _tokenSupply.current();
@@ -1291,18 +1290,11 @@ contract NFT_ERC721 is ERC721, Ownable {
     // public
     function mint(uint256 _mintAmount) public payable {
         uint256 supply = _tokenSupply.current();
-
-        require(
-            _mintAmount < maxMintAmount + 1,
-            "Must mint less than max amount"
-        );
         require(supply + _mintAmount <= maxSupply, "Must mint within supply");
-
         require(
             msg.value >= cost * _mintAmount,
             "Must pay appropriate cost for NFT"
         );
-
         for (uint256 i = 0; i < _mintAmount; i++) {
             _tokenSupply.increment();
             _safeMint(msg.sender, supply + i);
@@ -1349,10 +1341,6 @@ contract NFT_ERC721 is ERC721, Ownable {
 
     function setStartTime(uint256 _startTime) external onlyOwner {
         startTime = _startTime;
-    }
-
-    function setmaxMintAmount(uint256 _newmaxMintAmount) public onlyOwner {
-        maxMintAmount = _newmaxMintAmount;
     }
 
     function setBaseURI(string memory _newBaseURI) public onlyOwner {
