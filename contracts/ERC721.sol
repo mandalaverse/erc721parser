@@ -1263,7 +1263,6 @@ contract NFT_ERC721 is ERC721, Ownable {
     Counters.Counter private _tokenSupply;
     using Strings for uint256;
 
-    //TODO: baseURI hash, is it the same as the notRevealedURI
     string baseURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/";
     string public notRevealedURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/hidden.json";
     string public baseExtension = ".json";
