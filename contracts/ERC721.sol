@@ -1269,7 +1269,6 @@ contract NFT_ERC721 is ERC721, Ownable {
     string public baseExtension = ".json";
     uint256 public cost = 0.01 ether; //TODO: to update
     uint256 public maxSupply = 3755;
-    uint256 public maxMintAmount = 10; //TODO: optional, do we want this?
     bool public mintActive = true;
     bool public revealed = false;
     address payable public payments;
@@ -1277,8 +1276,7 @@ contract NFT_ERC721 is ERC721, Ownable {
 
     constructor() ERC721("TestTokens", "TT") {
         uint256 supply = _tokenSupply.current();
-        //TODO: mint amount for treasury, set to 25 now
-        for (uint256 i = 0; i < 25; i++) {
+        for (uint256 i = 0; i < 144; i++) {
             _tokenSupply.increment();
             //TODO: contract addr for treasury
             _safeMint(0x809bFD2E376BF2E4C53F352B8bF07c812662f588, supply + i);
