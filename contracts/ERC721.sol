@@ -1263,9 +1263,9 @@ contract NFT_ERC721 is ERC721, Ownable {
     Counters.Counter private _tokenSupply;
     using Strings for uint256;
 
-    //TODO: baseURI hash, is it the same as the notRevealedUri
+    //TODO: baseURI hash, is it the same as the notRevealedURI
     string baseURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/";
-    string public notRevealedUri = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/hidden.json";
+    string public notRevealedURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/hidden.json";
     string public baseExtension = ".json";
     uint256 public cost = 0.01 ether; //TODO: to update
     uint256 public maxSupply = 3755;
@@ -1314,7 +1314,7 @@ contract NFT_ERC721 is ERC721, Ownable {
         );
 
         if (revealed == false) {
-            return notRevealedUri;
+            return notRevealedURI;
         }
 
         string memory currentBaseURI = _baseURI();
@@ -1348,7 +1348,7 @@ contract NFT_ERC721 is ERC721, Ownable {
     }
 
     function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
-        notRevealedUri = _notRevealedURI;
+        notRevealedURI = _notRevealedURI;
     }
 
     function setBaseExtension(string memory _newBaseExtension)
