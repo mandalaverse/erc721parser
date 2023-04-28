@@ -1267,18 +1267,17 @@ contract NFT_ERC721 is ERC721, Ownable {
     string baseURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/";
     string public notRevealedURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/hidden.json";
     string public baseExtension = ".json";
-    uint256 public cost = 0.01 ether; //TODO: to update
+    uint256 public cost = 777 ether; //TODO: does Astar work the same as ether?
     uint256 public maxSupply = 3755;
     bool public revealed = false;
     address payable public payments;
-    uint256 public startTime = 1664582400; //TODO: update
+    uint256 public startTime = 1682697600;
 
-    constructor() ERC721("TestTokens", "TT") {
+    constructor() ERC721("Mandala Cryptonauts", "Cryptonauts") {
         uint256 supply = _tokenSupply.current();
         for (uint256 i = 0; i < 144; i++) {
             _tokenSupply.increment();
-            //TODO: contract addr for treasury
-            _safeMint(0x809bFD2E376BF2E4C53F352B8bF07c812662f588, supply + i);
+            _safeMint(0x83A2C762E34A9C2b7018e987d5a196F931D6045c, supply + i);
         }
     }
 
