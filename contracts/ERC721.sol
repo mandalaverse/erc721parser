@@ -1266,7 +1266,7 @@ contract NFT_ERC721 is ERC721, Ownable {
     string baseURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/";
     string public notRevealedURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/hidden.json";
     string public baseExtension = ".json";
-    uint256 public cost = 777 ether; //TODO: does Astar work the same as ether?
+    uint256 public cost = 777 ether;
     uint256 public maxSupply = 3755;
     bool public revealed = false;
     address payable public payments;
