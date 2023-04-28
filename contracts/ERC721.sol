@@ -1289,6 +1289,10 @@ contract NFT_ERC721 is ERC721, Ownable {
 
     // public
     function mint(uint256 _mintAmount) public payable {
+        require(
+            block.timestamp > startTime,
+            "Sale not started"
+        );
         uint256 supply = _tokenSupply.current();
         require(supply + _mintAmount <= maxSupply, "Must mint within supply");
         require(
