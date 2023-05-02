@@ -13,9 +13,10 @@ module.exports = {
     shibuya: {
       url: "https://evm.shibuya.astar.network",
       chainId:81,
-      accounts: [process.env.DEPLOY_KEY]
+      accounts: [process.env.DEPLOY_KEY],
+      gas: 0x5B8D80
     },
-  astar: {
+    astar: {
       url: "https://evm.astar.network",
       chainId:592,
       accounts: [process.env.DEPLOY_KEY]

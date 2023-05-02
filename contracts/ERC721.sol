@@ -1266,13 +1266,13 @@ contract NFT_ERC721 is ERC721, Ownable {
     string baseURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/";
     string public notRevealedURI = "https://ipfs.bakon.dev/ipfs/QmPWckBjpmQSTGXMzMsez91ayKGbGjonJ2cTe2ms3iTzig/hidden.json";
     string public baseExtension = ".json";
-    // uint256 public cost = 777 ether;
-    uint256 public cost = 1 ether;
+    uint256 public cost = 777 ether;
+    // uint256 public cost = 1 ether;
     uint256 public maxSupply = 3755;
     bool public revealed = false;
     address payable public payments;
-    // uint256 public startTime = 1682697600;
-    uint256 public startTime = 1682690394;
+    uint256 public startTime = 1682697600;
+    // uint256 public startTime = 1682690394;
 
     constructor() ERC721("Mandala Cryptonauts", "Cryptonauts") {
         uint256 supply = _tokenSupply.current();
