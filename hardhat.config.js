@@ -19,8 +19,16 @@ module.exports = {
     astar: {
       url: "https://evm.astar.network",
       chainId:592,
-      accounts: [process.env.DEPLOY_KEY]
+      accounts: [process.env.DEPLOY_KEY],
+      gas: 0x5B8D80
     },
+    astarAlchemy: {
+      url: "https://astar-mainnet.g.alchemy.com/v2/jM9RiNsAjsLz6qIXQCCAIIkoIC_FQbr0",
+      hainId:592,
+      accounts: [process.env.DEPLOY_KEY],
+      gas: 0x5B8D80
+    }
+
   }
 };
 
