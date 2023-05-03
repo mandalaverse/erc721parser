@@ -2,8 +2,8 @@ const { ethers } = require("hardhat");
 const request = require('request');
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
-// const mandaladb = "../server/typescript/db/mandala.db"; 
-const dblocation = "./mandala.db";
+const mandaladb = "../server/typescript/db/mandala.db"; 
+// const dblocation = "./mandala.db";
 let db;
 const main = async () => {
   db = await open({
