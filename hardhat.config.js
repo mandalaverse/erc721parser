@@ -28,7 +28,6 @@ module.exports = {
       accounts: [process.env.DEPLOY_KEY],
       gas: 0x5B8D80
     }
-
   }
 };
 
