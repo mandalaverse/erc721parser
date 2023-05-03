@@ -1,0 +1,21 @@
+[Install]
+WantedBy=multi-user.target
+
+[Unit]
+Description     = Monitor Astar Cryptonauts season 1 parser
+Requires        = network.target
+
+[Service]
+Type            = simple
+TimeoutStartSec = 10s
+Restart         = always
+RestartSec      = 10
+WorkingDirectory= /var/www/prod.enterthemandala.app/cryptonautsSC
+ExecStart       = npx hardhat run scripts/ownerParser.js --network astarAlchemy
+LimitNOFILE     = 500000
+LimitNPROC      = 500000
+User            = mandala
+Group           = mandala
+
+[Install]
+WantedBy        = default.target
