@@ -10,14 +10,14 @@ async function main() {
   // console.log("mint:", res);
   // const ownerof = await contract.ownerOf("0001");
   // console.log("ownerof", ownerof);
-  // const tokenURI = await contract.tokenURI(1);
-  // console.log("tokenURI", tokenURI);
-  // const setNotRevealedURI = await contract.setNotRevealedURI("https://ipfs.bakon.dev/ipfs/QmZxwetcqbMiAcng1cqtnP7bpYYmSg3bjXYtYfogV4a9po/hidden.json");
+  const tokenURI = await contract.tokenURI(1);
+  console.log("tokenURI", tokenURI);
+  // const setNotRevealedURI = await contract.setNotRevealedURI("ipfs://QmZxwetcqbMiAcng1cqtnP7bpYYmSg3bjXYtYfogV4a9po/hidden.json");
   // const resReveal = await setNotRevealedURI.wait();
   // console.log("resReveal", resReveal);
   // const owners = await contract.balanceOf();
   // console.log("owners", owners);
-  const minted = await contract.totalSupply();
+  // const minted = await contract.totalSupply();
   
 };
 

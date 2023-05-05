@@ -24,7 +24,13 @@ module.exports = {
     },
     astarAlchemy: {
       url: "https://astar-mainnet.g.alchemy.com/v2/jM9RiNsAjsLz6qIXQCCAIIkoIC_FQbr0",
-      hainId:592,
+      chainId:592,
+      accounts: [process.env.DEPLOY_KEY],
+      gas: 0x5B8D80
+    },
+    astarBakon: {
+      url: "https://astar.bakon.dev",
+      chainId:592,
       accounts: [process.env.DEPLOY_KEY],
       gas: 0x5B8D80
     }

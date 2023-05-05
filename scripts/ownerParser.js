@@ -68,6 +68,7 @@ const monitorContract = async ( contract ) => {
 }
 
 const fetchMetadata = async ( url ) => {
+  url = `https://ipfs.bakon.dev/ipfs/${url.replace("ipfs://","")}`;
   return new Promise(function (resolve, reject) {
     request(url, function (error, res, body) {
       if (!error && res.statusCode === 200) {
