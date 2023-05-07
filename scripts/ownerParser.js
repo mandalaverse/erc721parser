@@ -29,7 +29,7 @@ const syncTokens = async ( contract, minted, lastRow ) => {
   if( difference > 0 ) start = lastRow.length;
   if( difference > 0 ) console.log("Syncing this many: ", difference);
   if( lastRow.length === +minted ) start = +minted;
-  while( start < JSON.parse(minted) ){
+  while( start < (JSON.parse(minted)-1) ){
     let ownerof = await contract.ownerOf(start);
     // console.log("ownerof", ownerof);
     let tokenURI = await contract.tokenURI(start)
