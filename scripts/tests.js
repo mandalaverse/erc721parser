@@ -8,8 +8,8 @@ async function main() {
   // const mint = await contract.mint(0x01);
   // const res = await mint.wait();
   // console.log("mint:", res);
-  // const ownerof = await contract.ownerOf(357);
-  // console.log("ownerof", ownerof);
+  const ownerof = await contract.ownerOf(1);
+  console.log("ownerof", ownerof);
   // const tokenURI = await contract.tokenURI(357);
   // console.log("tokenURI", tokenURI);
   // const setNotRevealedURI = await contract.setNotRevealedURI("ipfs://QmZxwetcqbMiAcng1cqtnP7bpYYmSg3bjXYtYfogV4a9po/hidden.json");
@@ -17,8 +17,8 @@ async function main() {
   // console.log("resReveal", resReveal);
   // const owners = await contract.balanceOf("0xea46ac6A89067204c9EEC370e9E4aaCe53D11C69");
   // console.log("owners", owners);
-  const minted = await contract.totalSupply();
-  console.log("minted", minted);
+  // const minted = await contract.totalSupply();
+  // console.log("minted", minted);
   // const setBaseURI= await contract.setBaseURI("https://cryptonautreveal.bakon.dev/reveal/");
   // const resURI = await setBaseURI.wait();
   // console.log("resURI", resURI);

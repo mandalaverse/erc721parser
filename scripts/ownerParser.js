@@ -1,22 +1,24 @@
 const { ethers } = require("hardhat");
-const request = require('request');
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
 const dblocation = "../server/typescript/db/mandala.db"; 
 // const dblocation = "./mandala.db";
+
 let db;
 const main = async () => {
-  db = await open({
-    filename: dblocation,
-    driver: sqlite3.Database
-  });
+  //db = await open({
+  //  filename: dblocation,
+  //  driver: sqlite3.Database
+  //});
+
   const contract_address = "0x8f3fF4BebaB846aB06E487b2aAC28E12e4dbBc2C";
   const Contract = await ethers.getContractFactory("NFT_ERC721")
   const contract = await Contract.attach(contract_address)
   console.log("conctract", contract.address);
   const minted = await contract.totalSupply();
-  const lastRow = await dbCheckLastRow();
-  console.log("lastRow", lastRow.length);
+  // const lastRow = await dbCheckLastRow();
+  let lastRow = [];
+  // console.log("lastRow", lastRow.length);
   syncTokens(contract, minted, lastRow);
   await monitorContract(contract);
 };
@@ -26,20 +28,23 @@ const syncTokens = async ( contract, minted, lastRow ) => {
   console.log("Minted this many: ", JSON.parse(minted));
   let start = 0;
   let difference = (+minted - lastRow.length);
+  console.log("difference", difference);
   if( difference > 0 ) start = lastRow.length;
   if( difference > 0 ) console.log("Syncing this many: ", difference);
   if( lastRow.length === +minted ) start = +minted;
-  while( start < (JSON.parse(minted)-1) ){
+
+  while( start < (JSON.parse(minted)) ){
+    console.log("start", start);
     let ownerof = await contract.ownerOf(start);
-    // console.log("ownerof", ownerof);
-    let tokenURI = await contract.tokenURI(start)
-    // console.log("tokenURI", tokenURI);
+    console.log("ownerof", ownerof);
+    let tokenURI = await contract.tokenURI(start);
+    console.log("tokenURI", tokenURI);
     console.log(start + ": " + ownerof);
     let metadata = await fetchMetadata(tokenURI);
-    // console.log("Metadata: ", JSON.parse(metadata));
+    console.log("Metadata: ", metadata);
     let tokenExist = await dbCheckTokenExists(start);
     dbWriteNewSync( contract.address, start, ownerof );
-    // console.log(start)
+    console.log(start)
     start++;
   };
   const endSync = Date.now();
@@ -67,18 +72,15 @@ const monitorContract = async ( contract ) => {
   });
 }
 
-const fetchMetadata = async ( url ) => {
-  url = `https://ipfs.bakon.dev/ipfs/${url.replace("ipfs://","")}`;
-  return new Promise(function (resolve, reject) {
-    request(url, function (error, res, body) {
-      if (!error && res.statusCode === 200) {
-        resolve(body);
-      } else {
-        reject(error);
-      }
-    });
-  });
-};
+  const fetchMetadata = async ( url ) => {
+    try{
+      const response = await fetch(url);
+      if(response.status === 200) return(await response.json());
+    }catch(error){
+      console.log(url);
+      console.log("ERROR", error)
+    } 
+  };
 
 dbCheckLastRow = async () => {
   const SQL = "SELECT * FROM CryptonautNFT";
