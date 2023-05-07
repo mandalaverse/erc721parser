@@ -8,18 +8,17 @@ const dblocation = "../server/typescript/db/mandala.db";
 
 let db;
 const main = async () => {
-  //db = await open({
-  //  filename: dblocation,
-  //  driver: sqlite3.Database
-  //});
+  db = await open({
+    filename: dblocation,
+    driver: sqlite3.Database
+  });
   const contract_address = "0x8f3fF4BebaB846aB06E487b2aAC28E12e4dbBc2C";
   const Contract = await ethers.getContractFactory("NFT_ERC721")
   const contract = await Contract.attach(contract_address)
   console.log("conctract", contract.address);
   const minted = await contract.totalSupply();
-  // const lastRow = await dbCheckLastRow();
-  let lastRow = [];
-  // console.log("lastRow", lastRow.length);
+  const lastRow = await dbCheckLastRow();
+  console.log("lastRow", lastRow.length);
   syncTokens(contract, minted, lastRow);
   await monitorContract(contract);
 };
