@@ -1,7 +1,9 @@
 const { ethers } = require("hardhat");
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
+const fs = require("fs");
 const dblocation = "../server/typescript/db/mandala.db"; 
+
 // const dblocation = "./mandala.db";
 
 let db;
@@ -10,7 +12,6 @@ const main = async () => {
   //  filename: dblocation,
   //  driver: sqlite3.Database
   //});
-
   const contract_address = "0x8f3fF4BebaB846aB06E487b2aAC28E12e4dbBc2C";
   const Contract = await ethers.getContractFactory("NFT_ERC721")
   const contract = await Contract.attach(contract_address)
@@ -27,6 +28,8 @@ const syncTokens = async ( contract, minted, lastRow ) => {
   const startSync = Date.now();
   console.log("Minted this many: ", JSON.parse(minted));
   let start = 0;
+  let jsonDir = "/var/www/reveal/cryptonauts/";
+
   let difference = (+minted - lastRow.length);
   console.log("difference", difference);
   if( difference > 0 ) start = lastRow.length;
@@ -40,8 +43,9 @@ const syncTokens = async ( contract, minted, lastRow ) => {
     let tokenURI = await contract.tokenURI(start);
     console.log("tokenURI", tokenURI);
     console.log(start + ": " + ownerof);
-    let metadata = await fetchMetadata(tokenURI);
-    console.log("Metadata: ", metadata);
+    // let metadata = await fetchMetadata(tokenURI);
+    // console.log("Metadata: ", metadata);
+    let metadata = await readMetadata(`${jsonDir}${start}.json`);
     let tokenExist = await dbCheckTokenExists(start);
     dbWriteNewSync( contract.address, start, ownerof );
     console.log(start)
@@ -55,7 +59,8 @@ const monitorContract = async ( contract ) => {
   console.log("monitoring");
   contract.on("Transfer", async (from, to, value, event) => {
     let tokenURI = await contract.tokenURI(JSON.parse(value));
-    let metadata = await fetchMetadata(tokenURI);
+    // let metadata = await fetchMetadata(tokenURI);
+    let metadata = await readMetadata(`${jsonDir}${start}.json`);
     let token = {
       from: from,
       to: to,
@@ -64,23 +69,32 @@ const monitorContract = async ( contract ) => {
       metadata: metadata
     };
     console.log(token);
-
     let exists = await dbCheckTokenExists(JSON.parse(value));
     console.log("exists", exists);
     if(exists === true ) await dbUpdateOwner(token);
     if(exists === false ) await dbWriteNewTrasnfer(token);
   });
 }
-
-  const fetchMetadata = async ( url ) => {
-    try{
-      const response = await fetch(url);
-      if(response.status === 200) return(await response.json());
-    }catch(error){
-      console.log(url);
-      console.log("ERROR", error)
-    } 
+  
+const readMetadata = async ( file ) => {
+  console.log("file", file);
+  try{
+    return JSON.parse(fs.readFileSync(file, 'utf8'));
+  }catch( error ){
+    console.log("readMetadata error", error);
+    return("error");
   };
+};
+
+const fetchMetadata = async ( url ) => {
+  try{
+    const response = await fetch(url);
+    if(response.status === 200) return(await response.json());
+  }catch(error){
+    console.log(url);
+    console.log("ERROR", error)
+  } 
+};
 
 dbCheckLastRow = async () => {
   const SQL = "SELECT * FROM CryptonautNFT";
