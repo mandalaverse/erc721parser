@@ -2,7 +2,7 @@
 WantedBy=multi-user.target
 
 [Unit]
-Description     = Monitor Astar Cryptonauts season 1 parser
+Description     = ERC721 Owner Parser
 Requires        = network.target
 
 [Service]
@@ -10,12 +10,12 @@ Type            = simple
 TimeoutStartSec = 10s
 Restart         = always
 RestartSec      = 10
-WorkingDirectory= /var/www/prod.enterthemandala.app/cryptonautsSC
-ExecStart       = npx hardhat run scripts/ownerParser.js --network astarAlchemy
+WorkingDirectory= <location of script>
+ExecStart       = npx hardhat run scripts/ownerParser.js --network astar
 LimitNOFILE     = 500000
 LimitNPROC      = 500000
-User            = mandala
-Group           = mandala
+User            = user
+Group           = user
 
 [Install]
 WantedBy        = default.target
