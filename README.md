@@ -4,9 +4,9 @@ If your ERC721 SC is missing the #ERC721Enumerable function to return, it can be
 This short hardhat script will Query each tokens Owner write them in a sqlite db and monitor the SC for future mints or transfer transactions to updated the owner.
 
 # How to use:
-`npm install`<br />
-`Put your ERC721 contract in the contracts folder`<br />
-`Update the contract_address variable`<br />
+npm install<br />
+Put your ERC721 contract in the contracts folder<br />
+Update the contract_address variable in scripts/ownerParse.js file<br />
 In hardhat.config.js update your Blockchain networks.<br />
 Then run "npx hardhat run scripts/ownerParser.js --network `Network name from config file`"<br />
 
@@ -25,3 +25,4 @@ CREATE TABLE IF NOT EXISTS nft_owners(
   owner CHAR(100)
 );
 ```
+There is also a example of a systemctl file, that can make sure your parser is awlays on and running.
