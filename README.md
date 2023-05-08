@@ -1,6 +1,26 @@
 # ownerParser Script.
 
-If you didn't include the function to pull token id's by address in your smart contract. This parser will look through all your minted tokens,
-sync the token ID and Owner to a sqlite db and then monitor for all new transfers or mints to updated teh toekn owner.
+If your ERC721 SC is missing the #ERC721Enumerable function to return, it can be hard to view which tokens are owned by a specific address. 
+This short hardhat script will Query each tokens Owner write them in a sqlite db and monitor the SC for future mints or transfer transactions to updated the owner.
 
-Make sure you create a SQLite DB in the `SRC/` dir and provide the proper name in the Script and update the contract_address variable. 
+# How to use:
+`npm install`
+`Put your ERC721 contract in the contracts folder`
+`Update the contract_address variable`
+In hardhat.config.js update your Blockchain networks.
+Then run "npx hardhat run scripts/ownerParser.js --network <Network name from config file>"
+
+# DB Schema.
+// SQLLite DB Table
+CREATE TABLE IF NOT EXISTS nft_owners(
+  id INTEGER PRIMARY KEY autoincrement,
+  created_at CHAR(100),
+  updated_at CHAR(100),
+  blockNumber CHAR(100),
+  addr_from CHAR(100),
+  addr_to CHAR(100),
+  contract CHAR(100),
+  tokenID CHAR(100) UNIQUE,
+  nftName CHAR(100),
+  owner CHAR(100)
+);
