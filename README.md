@@ -8,10 +8,9 @@ This short hardhat script will Query each tokens Owner write them in a sqlite db
 `Put your ERC721 contract in the contracts folder`<br />
 `Update the contract_address variable`<br />
 In hardhat.config.js update your Blockchain networks.<br />
-Then run "npx hardhat run scripts/ownerParser.js --network <Network name from config file>"<br />
+Then run "npx hardhat run scripts/ownerParser.js --network `Network name from config file`"<br />
 
 # DB Schema.
-// SQLLite DB Table
 ```
 CREATE TABLE IF NOT EXISTS nft_owners(
   id INTEGER PRIMARY KEY autoincrement,
